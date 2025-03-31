@@ -1,0 +1,17 @@
+{
+  "name": "cloudcomments",
+  "scripts": {
+    "dev": "wrangler dev",
+    "dev:deploy": "wrangler deploy --minify --env development",
+    "prod:deploy": "wrangler deploy --env production --minify",
+    "migrate": "npx wrangler d1 execute vox --remote --yes  --file"
+  },
+  "dependencies": {
+    "hono": "^4.7.5",
+    "ulid": "^3.0.0"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20250214.0",
+    "wrangler": "^4.4.0"
+  }
+}

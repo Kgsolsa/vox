@@ -1,0 +1,13 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "cloudcomments",
+  "main": "src/index.ts",
+  "compatibility_date": "2025-03-31",
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "vox",
+      "database_id": "b4c400ba-37a8-47ae-9abe-ce65b6cf4e0c"
+    }
+  ]
+}
