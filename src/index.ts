@@ -1,17 +1,20 @@
-import { Hono } from 'hono'
+import { Hono } from "hono";
+import { cors } from "hono/cors";
 
 import authorsRouter from "./routes/authors";
 import commentsRouter from "./routes/comments";
-import likesRouter from "./routes/likes";
+import { logger } from "hono/logger";
 
-const app = new Hono()
+const app = new Hono();
 
-app.get('/', (c) => {
-  return c.text('Hello Hono!')
-})
+app.use(logger());
+app.use(cors());
 
-app.route('/v1/authors', authorsRouter);
-app.route('/v1/comments', commentsRouter);
-app.route('/v1/likes', likesRouter);
+app.get("/", c => {
+  return c.text("Hello Hono!");
+});
 
-export default app
+app.route("/v1/authors", authorsRouter);
+app.route("/v1/comments", commentsRouter);
+
+export default app;

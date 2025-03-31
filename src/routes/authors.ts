@@ -1,19 +1,33 @@
 import { Context, Hono } from "hono";
+
+import { deleteAuthor, getAuthorById, insertAuthor, listAuthors } from "../service/database";
+
 import { badRequest } from "../utils";
-import { ulid } from "ulid";
+import { Author } from "../types";
 
 const router = new Hono();
 
 router.get("/", async ({ req, env }: Context) => {
   try {
-    const data = await env.DB.prepare("select * from authors").bind().run();
+    const data = await listAuthors(env);
 
-    return Response.json({
-      data: data.results,
-    });
+    return Response.json(data);
   } catch (error) {
     console.error(error);
     return badRequest("Failed to fetch Authors", 500);
+  }
+});
+
+router.post("/", async ({ req, env }: Context) => {
+  const body = await req.json();
+
+  try {
+    const data = (await insertAuthor(env, body)) as Author;
+
+    return Response.json(data);
+  } catch (error) {
+    console.error(error);
+    return badRequest("Failed to create Author", 500);
   }
 });
 
@@ -25,30 +39,12 @@ router.get("/:id", async ({ req, env }: Context) => {
   }
 
   try {
-    const data = await env.DB.prepare("select * from authors where id = ?").bind(id).run();
+    const data = (await getAuthorById(env, id)) as Author;
 
-    return Response.json({
-      data: data.results[0],
-    });
+    return Response.json(data);
   } catch (error) {
     console.error(error);
     return badRequest("Failed to fetch Author", 500);
-  }
-});
-
-router.post("/", async ({ req, env }: Context) => {
-  const body = await req.json();
-
-  try {
-    const id = ulid();
-    const data = await env.DB.prepare("insert into authors (id, name, email, external_id) values (?, ?, ?, ?)").bind(id, body.name, body.email, body.external_id).run();
-
-    return Response.json({
-      data: data,
-    });
-  } catch (error) {
-    console.error(error);
-    return badRequest("Failed to create Author", 500);
   }
 });
 
@@ -80,11 +76,8 @@ router.delete("/:id", async ({ req, env }: Context) => {
   }
 
   try {
-    const data = await env.DB.prepare("delete from authors where id = ?").bind(id).run();
-
-    return Response.json({
-      data: data.results,
-    });
+    const data = await deleteAuthor(env, id);
+    return Response.json(data);
   } catch (error) {
     console.error(error);
     return badRequest("Failed to delete Author", 500);
