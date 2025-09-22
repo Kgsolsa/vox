@@ -6,8 +6,8 @@
   "d1_databases": [
     {
       "binding": "DB",
-      "database_name": "vox",
-      "database_id": "b4c400ba-37a8-47ae-9abe-ce65b6cf4e0c"
+      "database_name": "comments",
+      "database_id": "5fe31426-ebdb-43aa-aaf6-f064545d7bfd"
     }
   ]
 }
