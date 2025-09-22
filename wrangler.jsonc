@@ -9,5 +9,5 @@
       "database_name": "comments",
       "database_id": "5fe31426-ebdb-43aa-aaf6-f064545d7bfd"
     }
-  ]
+  ],"env": {"development":{"name":"s"}}
 }
