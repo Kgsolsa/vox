@@ -1,6 +1,6 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "cloudcomments",
+  "name": "s",
   "main": "src/index.ts",
   "compatibility_date": "2025-03-31",
   "d1_databases": [
